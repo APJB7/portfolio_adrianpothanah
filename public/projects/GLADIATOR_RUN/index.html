@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1024, initial-scale=1.0" />
+    <title>Gladiator Run</title>
+
+    <link rel="stylesheet" href="./css/style.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="game">
+    <button class="backPlay" onclick="goBack()">Back</button>
+
+    <main class="game-page">
+      <h1 class="game-title">GLADIATOR RUN</h1>
+
+      <div class="canvas-frame">
+        <canvas></canvas>
+      </div>
+    </main>
+
+    <script>
+      function goBack() {
+        window.location.href = "./webpage.html";
+      }
+
+      const params = new URLSearchParams(window.location.search);
+
+      if (params.get("preview") === "true") {
+        document.body.classList.add("preview-mode");
+      }
+    </script>
+
+    <script type="module" src="./javascript/script.js"></script>
+  </body>
+</html>

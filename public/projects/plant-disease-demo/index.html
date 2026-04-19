@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plant Disease Management System — AI-Powered Leaf Diagnostics</title>
+  <meta
+    name="description"
+    content="Upload a leaf photo and get instant AI-powered disease diagnosis, severity analysis, and research-backed treatment recommendations for your plants."
+  />
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#0a2e1f" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap"
+    rel="stylesheet"
+  />
+</head>
+
+<body>
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
+
+  <header class="topbar" id="topbar">
+    <div class="brand-wrap">
+      <div class="logo-box">
+        <img src="./icon-192.png" alt="PDMS Logo" class="site-logo" />
+      </div>
+      <div class="brand-block">
+        <h1>PlantGuard<span class="brand-ai">AI</span></h1>
+        <p class="brand-subtitle">Intelligent Plant Disease Diagnostics</p>
+      </div>
+    </div>
+
+    <nav class="topnav" aria-label="Main Navigation">
+      <a href="#" class="nav-link active">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Home
+      </a>
+      <a href="#" class="nav-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Logbook
+      </a>
+      <a href="#" class="nav-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Admin
+      </a>
+    </nav>
+  </header>
+
+  <main class="app-grid" id="appGrid">
+    <aside class="panel-left" id="panelLeft">
+      <div class="panel-left-inner">
+        <h2 class="hero-title">
+          Diagnose plant diseases<br />
+          <span class="gradient-text">in seconds</span>
+        </h2>
+        <p class="hero-description">
+          This portfolio demo uses a preloaded tomato leaf image and reproduces
+          the PlantGuard AI workflow using a fixed example result.
+        </p>
+
+        <div class="feature-strip">
+          <div class="feature-item">
+            <div class="feature-icon">AI</div>
+            <span>9 Disease Classes</span>
+          </div>
+          <div class="feature-divider"></div>
+          <div class="feature-item">
+            <div class="feature-icon">R</div>
+            <span>RAG-Enhanced</span>
+          </div>
+          <div class="feature-divider"></div>
+          <div class="feature-item">
+            <div class="feature-icon">%</div>
+            <span>Severity Mapping</span>
+          </div>
+        </div>
+
+        <div class="upload-zone" id="uploadZone">
+          <div class="upload-zone-inner" id="uploadZoneInner">
+            <div class="upload-preview" id="uploadPreviewWrap">
+              <img
+                id="filePreviewImg"
+                src="./images/sample-leaf.jpg"
+                alt="Selected leaf preview"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="upload-helper-row">
+          <span class="upload-helper-pill">Preloaded sample</span>
+          <span class="upload-helper-pill">Portfolio demo only</span>
+        </div>
+
+        <button id="analyzeBtn" class="analyze-btn">
+          <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span>Analyze Leaf</span>
+          <div class="btn-shimmer"></div>
+        </button>
+
+        <div id="status" class="status-bar">
+          Sample tomato leaf image loaded. Click Analyze Leaf to preview the workflow.
+        </div>
+      </div>
+    </aside>
+
+    <section class="panel-right" id="panelRight">
+      <div class="empty-state" id="emptyState">
+        <div class="empty-state-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 22c6.23-.05 7.87-5.57 7.5-10-.36-4.34-3.95-9.96-7.5-10-3.55.04-7.14 5.66-7.5 10-.37 4.43 1.27 9.95 7.5 10z"/><path d="M12 22v-8"/><path d="M8 18c1.5-1 2.5-2 4-4"/></svg>
+        </div>
+        <h3 class="empty-state-title">No analysis yet</h3>
+        <p class="empty-state-text">
+          Click <strong>Analyze Leaf</strong> to reveal the diagnosis report.
+        </p>
+      </div>
+
+      <div class="hidden" id="resultSection">
+        <section class="glass-card result-summary-card animate-in" id="summaryCard">
+          <div class="card-header">
+            <span class="chip chip-primary">Analysis Complete</span>
+          </div>
+
+          <div class="result-hero-row">
+            <div class="result-main">
+              <span class="result-label">Detected Condition</span>
+              <div class="result-disease-name" id="predictedClass"></div>
+            </div>
+          </div>
+
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-icon-wrap confidence-icon">✓</div>
+              <span class="metric-label">Confidence</span>
+              <span class="metric-value" id="confidence"></span>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-wrap severity-icon">!</div>
+              <span class="metric-label">Severity</span>
+              <div id="severity"></div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-wrap area-icon">%</div>
+              <span class="metric-label">Affected Area</span>
+              <span class="metric-value" id="severityPercent"></span>
+            </div>
+          </div>
+        </section>
+
+        <nav class="tab-nav" id="tabNav" aria-label="Result tabs">
+          <button class="tab-btn active" data-tab="research">Research</button>
+          <button class="tab-btn" data-tab="care">Care Plan</button>
+          <button class="tab-btn" data-tab="visuals">Visuals</button>
+          <button class="tab-btn" data-tab="details">Details</button>
+        </nav>
+
+        <div class="tab-panels">
+          <div class="tab-panel active" id="panelResearch" data-tab="research">
+            <div class="glass-card animate-in">
+              <h2 class="card-title">Research-Based Findings</h2>
+              <div class="findings-grid">
+                <div class="finding-block">
+                  <h4 class="finding-heading">Pathogen Notes</h4>
+                  <ul id="researchPathogenNotes" class="finding-list"></ul>
+                </div>
+                <div class="finding-block">
+                  <h4 class="finding-heading">Research Findings</h4>
+                  <ul id="researchFindings" class="finding-list"></ul>
+                </div>
+                <div class="finding-block">
+                  <h4 class="finding-heading">Supported Actions</h4>
+                  <ul id="researchActions" class="finding-list"></ul>
+                </div>
+                <div class="finding-block">
+                  <h4 class="finding-heading">Monitoring Points</h4>
+                  <ul id="researchMonitoring" class="finding-list"></ul>
+                </div>
+                <div class="finding-block">
+                  <h4 class="finding-heading">Cautions</h4>
+                  <ul id="researchCautions" class="finding-list"></ul>
+                </div>
+                <div class="finding-block full-width">
+                  <h4 class="finding-heading">Research Follow-Up</h4>
+                  <p id="researchFollowUp" class="follow-up-text"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="panelCare" data-tab="care">
+            <div class="glass-card animate-in">
+              <h2 class="card-title">Simple Guidance for Home Gardeners</h2>
+              <div class="guidance-summary-box">
+                <div class="guidance-icon-wrap">i</div>
+                <div>
+                  <span class="result-label">What this means</span>
+                  <p id="summary" class="summary-text"></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass-card animate-in">
+              <h2 class="card-title">What To Do Now</h2>
+              <ul id="treatmentList" class="action-list"></ul>
+            </div>
+
+            <div class="glass-card animate-in">
+              <h2 class="card-title">What To Monitor</h2>
+              <ul id="monitoringList" class="action-list"></ul>
+            </div>
+
+            <div class="glass-card caution-card animate-in">
+              <h2 class="card-title">Please Be Careful</h2>
+              <ul id="cautionList" class="action-list caution-list"></ul>
+            </div>
+
+            <div class="glass-card animate-in">
+              <h2 class="card-title">When To Check Again</h2>
+              <p id="followUpText" class="follow-up-text"></p>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="panelVisuals" data-tab="visuals">
+            <div class="glass-card animate-in">
+              <h2 class="card-title">Image Analysis</h2>
+              <div class="visual-grid">
+                <div class="visual-card">
+                  <h3>Your Uploaded Image</h3>
+                  <img id="uploadedPreview" src="./images/sample-leaf.jpg" alt="Uploaded image preview" />
+                </div>
+                <div class="visual-card">
+                  <h3>Model Focus Area</h3>
+                  <img id="gradcamImage" src="./images/gradcam-demo.jpg" alt="Grad-CAM overlay" />
+                </div>
+                <div class="visual-card">
+                  <h3>Estimated Affected Area</h3>
+                  <img id="affectedImage" src="./images/affected-area-demo.jpg" alt="Affected area overlay" />
+                </div>
+              </div>
+              <p class="footnote">
+                The severity result is an approximate support indicator based on
+                model attention and leaf-region masking.
+              </p>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="panelDetails" data-tab="details">
+            <div class="glass-card animate-in">
+              <h2 class="card-title">Top 3 Predictions</h2>
+              <ul id="top3List" class="prediction-list"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 PlantGuard AI · Plant Disease Management System</p>
+  </footer>
+
+  <script src="./app.js"></script>
+  <script src="./particles.js"></script>
+</body>
+</html>
