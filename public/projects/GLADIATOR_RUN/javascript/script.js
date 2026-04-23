@@ -64,7 +64,7 @@ document.addEventListener(
           sound.pause();
           sound.currentTime = 0;
         })
-        .catch(() => {});
+        .catch(() => { });
     });
   },
   { once: true }
@@ -99,6 +99,7 @@ let yellowPipe;
 let blockPlatform;
 let coinImage;
 let flagImage;
+
 
 /* =========================
    GAME STATE
@@ -135,6 +136,10 @@ let floatingTexts = [];
 let animationId;
 let gameOver = false;
 let levelIntroStart = Date.now();
+let isPaused = false;
+let pauseStartTime = 0;
+let totalPausedDuration = 0;
+let pauseButton = null;
 
 const keys = {
   right: { pressed: false },
@@ -151,7 +156,7 @@ font
   .then((loadedFont) => {
     document.fonts.add(loadedFont);
   })
-  .catch(() => {});
+  .catch(() => { });
 
 /* =========================
    ASSET LOADING
@@ -439,7 +444,7 @@ class Coin {
       addFloatingText("+10", this.position.x, this.position.y, "255, 215, 0");
 
       coinSong.currentTime = 0;
-      coinSong.play().catch(() => {});
+      coinSong.play().catch(() => { });
     }
   }
 }
@@ -1083,6 +1088,14 @@ function init() {
   gameOver = false;
   scrollOffSet = 0;
 
+  isPaused = false;
+  pauseStartTime = 0;
+  totalPausedDuration = 0;
+
+  if (pauseButton) {
+    pauseButton.textContent = "Pause";
+  }
+
   keys.right.pressed = false;
   keys.left.pressed = false;
 
@@ -1239,7 +1252,7 @@ function displayWin() {
   themeSong.currentTime = 0;
 
   winSong.currentTime = 0;
-  winSong.play().catch(() => {});
+  winSong.play().catch(() => { });
 }
 
 function displayGameOver() {
@@ -1274,7 +1287,7 @@ function displayGameOver() {
   jumpSong.currentTime = 0;
 
   gameOverSong.currentTime = 0;
-  gameOverSong.play().catch(() => {});
+  gameOverSong.play().catch(() => { });
 
   setTimeout(() => {
     const existingButton = document.querySelector(".restart-button");
@@ -1552,22 +1565,126 @@ function handlePlatformCollision() {
   });
 }
 
+function createPauseButton() {
+  if (pauseButton) return;
+
+  pauseButton = document.createElement("button");
+  pauseButton.className = "pause-button";
+  pauseButton.textContent = "Pause";
+
+  Object.assign(pauseButton.style, {
+    position: "absolute",
+    top: "18px",
+    right: "18px",
+    zIndex: "20",
+    padding: "12px 18px",
+    borderRadius: "12px",
+    border: "2px solid rgba(255, 215, 0, 0.8)",
+    background: "rgba(0, 0, 0, 0.65)",
+    color: "#fff",
+    fontFamily: '"Press Start 2P", "Pixelated", Arial, sans-serif',
+    fontSize: "11px",
+    cursor: "pointer",
+    boxShadow: "0 8px 18px rgba(0,0,0,0.35)",
+  });
+
+  pauseButton.addEventListener("click", togglePause);
+
+  const parent = canvas.parentElement || document.body;
+
+  const parentStyle = window.getComputedStyle(parent);
+  if (parentStyle.position === "static") {
+    parent.style.position = "relative";
+  }
+
+  parent.appendChild(pauseButton);
+}
+
+function drawPauseOverlay() {
+  c.save();
+
+  c.fillStyle = "rgba(0, 0, 0, 0.45)";
+  c.fillRect(0, 0, canvas.width, canvas.height);
+
+  c.fillStyle = "rgba(0, 0, 0, 0.55)";
+  c.fillRect(canvas.width / 2 - 220, canvas.height / 2 - 90, 440, 140);
+
+  c.strokeStyle = "rgba(244, 180, 0, 0.85)";
+  c.lineWidth = 3;
+  c.strokeRect(canvas.width / 2 - 220, canvas.height / 2 - 90, 440, 140);
+
+  c.textAlign = "center";
+  c.fillStyle = "#ffffff";
+  c.font = '30px "Press Start 2P", "Pixelated", Arial, sans-serif';
+  c.fillText("PAUSED", canvas.width / 2, canvas.height / 2 - 10);
+
+  c.fillStyle = "rgba(255,255,255,0.8)";
+  c.font = '13px "Press Start 2P", "Pixelated", Arial, sans-serif';
+  c.fillText("Press P to resume", canvas.width / 2, canvas.height / 2 + 35);
+
+  c.restore();
+}
+
+function pauseGame() {
+  if (isPaused || gameOver) return;
+
+  isPaused = true;
+  pauseStartTime = Date.now();
+
+  cancelAnimationFrame(animationId);
+
+  themeSong.pause();
+
+  if (pauseButton) {
+    pauseButton.textContent = "Resume";
+  }
+
+  drawPauseOverlay();
+}
+
+function resumeGame() {
+  if (!isPaused || gameOver) return;
+
+  isPaused = false;
+  totalPausedDuration += Date.now() - pauseStartTime;
+
+  if (audioUnlocked) {
+    themeSong.play().catch(() => { });
+  }
+
+  if (pauseButton) {
+    pauseButton.textContent = "Pause";
+  }
+
+  animate();
+}
+
+function togglePause() {
+  if (isPaused) {
+    resumeGame();
+  } else {
+    pauseGame();
+  }
+}
+
 /* =========================
    ANIMATE
 ========================= */
 function animate() {
-  if (gameOver) return;
+  if (gameOver || isPaused) return;
 
   animationId = requestAnimationFrame(animate);
 
   if (audioUnlocked && themeSong.paused) {
-    themeSong.play().catch(() => {});
+    themeSong.play().catch(() => { });
   }
 
   c.fillStyle = "white";
   c.fillRect(0, 0, canvas.width, canvas.height);
 
-  const currentTime = Math.floor((Date.now() - startTime) / 1000);
+  const currentTime = Math.floor(
+    (Date.now() - startTime - totalPausedDuration) / 1000
+  );
   timeLeft = 100 - currentTime;
 
   if (timeLeft <= 0) {
@@ -1699,7 +1816,12 @@ addEventListener("keydown", (e) => {
       }
 
       jumpSong.currentTime = 0;
-      jumpSong.play().catch(() => {});
+      jumpSong.play().catch(() => { });
+      break;
+
+    case "p":
+    case "P":
+      togglePause();
       break;
   }
 });
@@ -1723,6 +1845,7 @@ async function startGame() {
   try {
     await loadGameAssets();
     init();
+    createPauseButton();
     animate();
   } catch (error) {
     console.error(error);

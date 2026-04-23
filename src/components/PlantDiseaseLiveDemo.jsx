@@ -1,4 +1,5 @@
 import { Play, Sparkles, Leaf, Activity, BrainCircuit } from "lucide-react";
+import InteractivePreviewFrame from "./InteractivePreviewFrame";
 
 export default function PlantDiseaseLiveDemo() {
   return (
@@ -84,11 +85,15 @@ export default function PlantDiseaseLiveDemo() {
               </span>
             </div>
 
-            <iframe
-              src="/projects/plant-disease-demo/index.html"
-              title="Plant Disease Management Demo"
-              className="h-[820px] w-full border-0 bg-slate-950"
-            />
+            <div className="relative flex w-full justify-center">
+              <div className="w-full">
+                <InteractivePreviewFrame
+                  src="projects/plant-disease-demo/index.html"
+                  title="Plant Disease Management System Preview"
+                  height="700px"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

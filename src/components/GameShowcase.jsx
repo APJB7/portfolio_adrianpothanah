@@ -1,12 +1,16 @@
+import { useState } from "react";
 import {
   Gamepad2,
   Code2,
   ExternalLink,
   Sparkles,
   MonitorPlay,
+  Play,
 } from "lucide-react";
 
 export default function GameShowcase() {
+  const [startPreview, setStartPreview] = useState(false);
+
   return (
     <section
       id="game-showcase"
@@ -101,16 +105,43 @@ export default function GameShowcase() {
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.12),transparent_55%)]"></div>
 
               <div className="relative h-[576px] w-[1024px] max-w-full overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl">
-                <iframe
-                  src="/projects/GLADIATOR_RUN/index.html?preview=true"
-                  title="Gladiator Run Game Preview"
-                  tabIndex="0"
-                  className="absolute left-0 top-0 h-[576px] w-[1024px] origin-top-left border-0"
-                ></iframe>
+                {!startPreview ? (
+                  <div
+                    className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden px-6 text-center"
+                    style={{
+                      backgroundImage:
+                        "url('public/projects/plant-disease-demo/images/gladiator_run_logo.png')",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      backgroundRepeat: "no-repeat",
+                    }}
+                  >
+                    <div className="absolute inset-0 bg-black/10"></div>
+
+                    <div className="relative z-10 flex flex-col items-center">
+                      <button
+                        onClick={() => setStartPreview(true)}
+                        className="-translate-y-[33px] inline-flex items-center gap-3 rounded-xl bg-yellow-500 px-8 py-4 text-lg font-bold text-white shadow-lg transition hover:-translate-y-[11px] hover:bg-yellow-400"
+                      >
+                        <Play className="h-5 w-5 fill-current" />
+                        Play
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <iframe
+                    src="/projects/GLADIATOR_RUN/index.html?preview=true"
+                    title="Gladiator Run Game Preview"
+                    tabIndex="0"
+                    className="absolute left-0 top-0 h-[576px] w-[1024px] origin-top-left border-0"
+                  ></iframe>
+                )}
               </div>
 
               <div className="pointer-events-none absolute bottom-6 left-6 rounded-2xl border border-white/10 bg-black/60 px-4 py-3 text-xs text-slate-200 shadow-lg backdrop-blur-md">
-                Click inside the game first • Arrow keys to play
+                {startPreview
+                  ? "Click inside the game first • Arrow keys to play"
+                  : "Game preview is paused until you press Play"}
               </div>
             </div>
 
@@ -143,23 +174,13 @@ export default function GameShowcase() {
                   Play Fullscreen
                   <ExternalLink className="h-4 w-4" />
                 </a>
-
-                <a
-                  href="https://github.com/APJB7/WebgameCoursework"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/10 px-5 py-3 text-sm font-bold text-white backdrop-blur-md transition hover:-translate-y-1 hover:bg-white/15"
-                >
-                  View GitHub
-                  <span>↗</span>
-                </a>
               </div>
             </div>
           </div>
         </div>
 
         <div className="mt-10 grid gap-5 md:grid-cols-3">
-          <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-md transition duration-300 hover:-translate-y-2">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-md">
             <h3 className="mb-3 text-lg font-bold text-emerald-300">
               Custom Game Assets
             </h3>
@@ -169,7 +190,7 @@ export default function GameShowcase() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-md transition duration-300 hover:-translate-y-2">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-md">
             <h3 className="mb-3 text-lg font-bold text-cyan-300">
               Game Mechanics
             </h3>
@@ -179,7 +200,7 @@ export default function GameShowcase() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-md transition duration-300 hover:-translate-y-2">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-md">
             <h3 className="mb-3 text-lg font-bold text-purple-300">
               Portfolio Value
             </h3>

@@ -2,11 +2,11 @@ import { useMemo, useState } from "react";
 import {
   ChevronLeft,
   ChevronRight,
-  Brain,
   Gamepad2,
   Leaf,
   Database,
   ExternalLink,
+  Palette,
 } from "lucide-react";
 
 export default function FeaturedProjects() {
@@ -26,7 +26,6 @@ export default function FeaturedProjects() {
           "bg-emerald-400/10 text-emerald-300 border border-emerald-400/20",
         tags: ["TensorFlow", "Flask", "Grad-CAM", "ChromaDB", "PWA"],
         liveHref: "#plant-disease-system",
-        repoHref: "#",
       },
       {
         id: 2,
@@ -41,7 +40,6 @@ export default function FeaturedProjects() {
           "bg-cyan-400/10 text-cyan-300 border border-cyan-400/20",
         tags: ["JavaScript", "HTML Canvas", "CSS", "Game Logic", "Figma"],
         liveHref: "#game-showcase",
-        repoHref: "https://github.com/APJB7/WebgameCoursework",
       },
       {
         id: 3,
@@ -57,22 +55,20 @@ export default function FeaturedProjects() {
           "bg-violet-400/10 text-violet-300 border border-violet-400/20",
         tags: ["Vue.js", "Node.js", "MongoDB", "REST API", "Full-Stack"],
         liveHref: "#vue-project-live-preview",
-        repoHref: "https://github.com/APJB7/Vue-FrontEnd",
       },
       {
         id: 4,
-        title: "AML Risk Analysis Platform",
-        subtitle: "Machine Learning • Risk Scoring • Analytics",
+        title: "UI / UX Design Portfolio",
+        subtitle: "Wireframes • Visual Design • User Experience",
         description:
-          "A platform focused on AML red-flag detection and structural corporate risk analysis, combining anomaly detection, feature engineering, and dashboard-based interpretation.",
-        icon: <Brain className="h-5 w-5" />,
-        accent: "from-pink-400 to-rose-500",
+          "A curated portfolio of UI and UX design work including interface concepts, wireframes, layout exploration, visual hierarchy, and presentation-ready design documentation.",
+        icon: <Palette className="h-5 w-5" />,
+        accent: "from-pink-400 to-violet-500",
         badgeClass: "border-pink-400/25 bg-pink-400/10 text-pink-300",
         iconClass:
           "bg-pink-400/10 text-pink-300 border border-pink-400/20",
-        tags: ["Python", "Isolation Forest", "Dashboard", "AML", "Analytics"],
-        liveHref: "#",
-        repoHref: "#",
+        tags: ["Figma", "Wireframes", "UI Design", "UX Thinking", "Portfolio"],
+        liveHref: "#uiux-portfolio",
       },
     ],
     []
@@ -163,16 +159,6 @@ export default function FeaturedProjects() {
                       View Project
                       <ExternalLink className="h-4 w-4" />
                     </a>
-
-                    <a
-                      href={currentProject.repoHref}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-1 hover:bg-white/15"
-                    >
-                      View Repo
-                      <span>↗</span>
-                    </a>
                   </div>
                 </div>
               </div>
@@ -212,10 +198,11 @@ export default function FeaturedProjects() {
                       <button
                         key={project.id}
                         onClick={() => goToSlide(index)}
-                        className={`flex w-full items-start gap-4 rounded-2xl border p-4 text-left transition ${active
+                        className={`flex w-full items-start gap-4 rounded-2xl border p-4 text-left transition ${
+                          active
                             ? "border-white/20 bg-white/12 shadow-lg"
                             : "border-white/8 bg-white/[0.04] hover:bg-white/[0.08]"
-                          }`}
+                        }`}
                       >
                         <div
                           className={`mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${project.iconClass}`}
@@ -243,10 +230,11 @@ export default function FeaturedProjects() {
                     key={index}
                     onClick={() => goToSlide(index)}
                     aria-label={`Go to project ${index + 1}`}
-                    className={`h-2.5 rounded-full transition ${index === currentIndex
+                    className={`h-2.5 rounded-full transition ${
+                      index === currentIndex
                         ? "w-8 bg-white"
                         : "w-2.5 bg-white/30 hover:bg-white/50"
-                      }`}
+                    }`}
                   />
                 ))}
               </div>
