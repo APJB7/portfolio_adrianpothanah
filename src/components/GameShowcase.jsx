@@ -110,7 +110,7 @@ export default function GameShowcase() {
                     className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden px-6 text-center"
                     style={{
                       backgroundImage:
-                        "url('public/projects/plant-disease-demo/images/gladiator_run_logo.png')",
+                        "url('public/gladiator_run_logo.png')",
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       backgroundRepeat: "no-repeat",

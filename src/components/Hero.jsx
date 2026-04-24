@@ -78,7 +78,7 @@ export default function Hero() {
                         Plant Disease AI
                     </div>
                     <img
-                        src="/projects/plant-disease-demo/images/plant_disease_logo.png"
+                        src="public/plant_disease_logo.png"
                         alt="Plant Disease AI preview"
                         className="h-40 w-full rounded-2xl object-cover"
                     />
@@ -89,7 +89,7 @@ export default function Hero() {
                         Gladiator Run Game
                     </div>
                     <img
-                        src="/projects/plant-disease-demo/images/gladiator_run_logo.png"
+                        src="public/gladiator_run_logo.png"
                         alt="Mario Game preview"
                         className="h-36 w-full rounded-2xl object-cover"
                     />
@@ -100,7 +100,7 @@ export default function Hero() {
                         UI / UX
                     </div>
                     <img
-                        src="/project-images/uiux.png"
+                        src="public/uiux.png"
                         alt="UI/UX Portfolio Preview"
                         className="h-40 w-full rounded-2xl object-cover"
                     />
@@ -111,7 +111,7 @@ export default function Hero() {
                         Full-Stack Vue
                     </div>
                     <img
-                        src="/projects/plant-disease-demo/images/fullstack_logo.png"
+                        src="public/fullstack_logo.png"
                         alt="Full Stack Vue preview"
                         className="h-32 w-full rounded-2xl object-cover"
                     />

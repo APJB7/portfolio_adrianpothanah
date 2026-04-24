@@ -50,7 +50,7 @@ export default function UIUXPortfolioShowcase() {
 
               <div className="flex flex-wrap gap-3">
                 <a
-                  href="/pdfs/uiux-portfolio.pdf"
+                  href={`/uiux-portfolio.pdf`}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 rounded-xl bg-pink-400 px-4 py-2 text-sm font-bold text-slate-950 transition hover:bg-pink-300"
@@ -60,7 +60,7 @@ export default function UIUXPortfolioShowcase() {
                 </a>
 
                 <a
-                  href="/pdfs/uiux-portfolio.pdf"
+                  href="/uiux-portfolio.pdf"
                   download
                   className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-4 py-2 text-sm font-bold text-white transition hover:bg-white/15"
                 >
@@ -72,7 +72,7 @@ export default function UIUXPortfolioShowcase() {
 
             <div className="bg-slate-900 p-4 md:p-5">
               <InteractivePreviewFrame
-                src="/pdfs/uiux-portfolio.pdf"
+                src="public/uiux-portfolio.pdf"
                 title="UI UX Portfolio PDF"
                 height="780px"
                 className="rounded-[1.4rem] border border-white/10 bg-[#1f1f23] shadow-[0_20px_60px_rgba(0,0,0,0.35)]"
