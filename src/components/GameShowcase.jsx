@@ -76,7 +76,7 @@ export default function GameShowcase() {
                 </span>
 
                 <a
-                  href="${import.meta.env.BASE_URL}/GLADIATOR_RUN/index.html"
+                  href="/projects/GLADIATOR_RUN/index.html"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-4 py-2 text-xs font-bold text-slate-950 transition hover:bg-emerald-300"
@@ -110,7 +110,7 @@ export default function GameShowcase() {
                     className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden px-6 text-center"
                     style={{
                       backgroundImage:
-                        "url('public/gladiator_run_logo.png')",
+                        `url('${import.meta.env.BASE_URL}gladiator_run_logo.png')`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       backgroundRepeat: "no-repeat",
