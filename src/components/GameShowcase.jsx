@@ -76,7 +76,7 @@ export default function GameShowcase() {
                 </span>
 
                 <a
-                  href="/projects/GLADIATOR_RUN/index.html"
+                  href="${import.meta.env.BASE_URL}/GLADIATOR_RUN/index.html"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-4 py-2 text-xs font-bold text-slate-950 transition hover:bg-emerald-300"
