@@ -72,7 +72,8 @@ export default function UIUXPortfolioShowcase() {
 
             <div className="bg-slate-900 p-4 md:p-5">
               <InteractivePreviewFrame
-                src="public/uiux-portfolio.pdf"
+                href="/uiux-portfolio.pdf"
+                src="/uiux-portfolio.pdf"
                 title="UI UX Portfolio PDF"
                 height="780px"
                 className="rounded-[1.4rem] border border-white/10 bg-[#1f1f23] shadow-[0_20px_60px_rgba(0,0,0,0.35)]"

@@ -54,12 +54,10 @@ export default function Hero() {
                     transform: `translate(${mousePosition.x * 0.35}px, ${mousePosition.y * 0.35}px)`,
                 }}
             >
-                {/* Glowing background circles */}
                 <div className="hero-glow hero-glow-1 parallax-layer parallax-slow" />
                 <div className="hero-glow hero-glow-2 parallax-layer parallax-medium" />
                 <div className="hero-glow hero-glow-3 parallax-layer parallax-reverse" />
 
-                {/* Floating tiny icons */}
                 <div className="orbit-icon orbit-icon-1 parallax-layer parallax-slow">
                     <Leaf size={18} />
                 </div>
@@ -78,7 +76,7 @@ export default function Hero() {
                         Plant Disease AI
                     </div>
                     <img
-                        src="public/plant_disease_logo.png"
+                        src="/plant_disease_logo.png"
                         alt="Plant Disease AI preview"
                         className="h-40 w-full rounded-2xl object-cover"
                     />
@@ -89,7 +87,7 @@ export default function Hero() {
                         Gladiator Run Game
                     </div>
                     <img
-                        src="public/gladiator_run_logo.png"
+                        src="/gladiator_run_logo.png"
                         alt="Mario Game preview"
                         className="h-36 w-full rounded-2xl object-cover"
                     />
@@ -100,7 +98,7 @@ export default function Hero() {
                         UI / UX
                     </div>
                     <img
-                        src="public/uiux.png"
+                        src="/uiux.png"
                         alt="UI/UX Portfolio Preview"
                         className="h-40 w-full rounded-2xl object-cover"
                     />
@@ -111,7 +109,7 @@ export default function Hero() {
                         Full-Stack Vue
                     </div>
                     <img
-                        src="public/fullstack_logo.png"
+                        src="/fullstack_logo.png"
                         alt="Full Stack Vue preview"
                         className="h-32 w-full rounded-2xl object-cover"
                     />
