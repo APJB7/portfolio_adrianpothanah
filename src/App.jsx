@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 
 export default function App() {
@@ -26,7 +27,11 @@ export default function App() {
         <div className="site-parallax-orb site-parallax-orb-3"></div>
       </div>
 
-      <Home />
+      <Navbar />
+
+      <main className="pt-24">
+        <Home />
+      </main>
     </>
   );
 }

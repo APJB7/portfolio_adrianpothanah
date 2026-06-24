@@ -7,9 +7,10 @@ export default function About() {
           Creating with logic, design, and interactivity.
         </h3>
         <p className="mt-6 max-w-3xl leading-8 text-slate-300">
-          I enjoy building projects that combine technical depth with engaging user experience.
-          My work spans AI systems, web development, games, and UI/UX concepts, with a focus on
-          turning ideas into polished digital products.
+          I enjoy building projects that bring together technology, creativity,
+          and user experience. From AI-driven systems and full-stack applications
+          to interactive games and UI/UX concepts, I like turning ideas into
+          digital products that are both functional and engaging.
         </p>
       </div>
     </section>
