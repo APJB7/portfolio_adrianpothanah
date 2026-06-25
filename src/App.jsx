@@ -27,9 +27,11 @@ export default function App() {
         <div className="site-parallax-orb site-parallax-orb-3"></div>
       </div>
 
-      <Navbar />
+      <div className="relative z-50">
+        <Navbar />
+      </div>
 
-      <main className="pt-24">
+      <main className="relative z-10 pt-24">
         <Home />
       </main>
     </>
