@@ -13,6 +13,47 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
   const [scrolled, setScrolled] = useState(false);
 
+  const smoothScrollTo = (targetId) => {
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    const navbarOffset = 90;
+    const targetPosition =
+      target.getBoundingClientRect().top + window.pageYOffset - navbarOffset;
+
+    const startPosition = window.pageYOffset;
+    const distance = targetPosition - startPosition;
+    const duration = 1100;
+    let startTime = null;
+
+    const animation = (currentTime) => {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+
+      const easeInOutCubic = (t) =>
+        t < 0.5
+          ? 4 * t * t * t
+          : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+      const progress = Math.min(timeElapsed / duration, 1);
+      const easedProgress = easeInOutCubic(progress);
+
+      window.scrollTo(0, startPosition + distance * easedProgress);
+
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animation);
+      }
+    };
+
+    requestAnimationFrame(animation);
+  };
+
+  const handleNavClick = (e, targetId) => {
+    e.preventDefault();
+    setOpen(false);
+    smoothScrollTo(targetId);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -59,7 +100,7 @@ export default function Navbar() {
         <a
           href="#home"
           className="group flex items-center gap-3 text-white"
-          onClick={() => setOpen(false)}
+          onClick={(e) => handleNavClick(e, "home")}
         >
           <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-400 via-cyan-400 to-violet-500 text-slate-950 shadow-lg shadow-cyan-500/20 transition duration-300 group-hover:scale-105">
             <Sparkles className="h-5 w-5" />
@@ -81,6 +122,7 @@ export default function Navbar() {
               <a
                 key={link.id}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.id)}
                 className={`relative rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
                   isActive
                     ? "bg-white/10 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.10)]"
@@ -94,13 +136,6 @@ export default function Navbar() {
               </a>
             );
           })}
-
-          <a
-            href="#contact"
-            className="ml-2 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400 px-5 py-2.5 text-sm font-semibold text-slate-950 transition duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-cyan-500/20"
-          >
-            Let’s Talk
-          </a>
         </nav>
 
         <button
@@ -125,7 +160,7 @@ export default function Navbar() {
               <a
                 key={link.id}
                 href={link.href}
-                onClick={() => setOpen(false)}
+                onClick={(e) => handleNavClick(e, link.id)}
                 className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${
                   isActive
                     ? "bg-white/10 text-white"
@@ -136,14 +171,6 @@ export default function Navbar() {
               </a>
             );
           })}
-
-          <a
-            href="#contact"
-            onClick={() => setOpen(false)}
-            className="mt-2 inline-flex w-fit rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400 px-5 py-2.5 text-sm font-semibold text-slate-950"
-          >
-            Let’s Talk
-          </a>
         </nav>
       </div>
     </header>
